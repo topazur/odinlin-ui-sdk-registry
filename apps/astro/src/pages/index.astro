@@ -1,0 +1,81 @@
+---
+import { ReactButton } from "../components/ReactButton"
+import { VueButton } from "../components/VueButton"
+---
+
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/assets/stylex.css" />
+    <title>Button · React + Vue</title>
+  </head>
+  <body>
+    <main>
+      <header class="page-header">
+        <p class="eyebrow">UI SDK · Button</p>
+        <h1>Button 组件验证</h1>
+        <p class="intro">React 和 Vue 使用同一套 ui-sdk Button 行为，StyleX 只负责外层样式。</p>
+      </header>
+
+      <section class="mode mode-light" data-astryx-theme="neutral" data-theme="light">
+        <div class="mode-heading"><h2>Light</h2><span>data-theme="light"</span></div>
+        <article class="example">
+          <h3>Usage</h3><p>使用 Button 运行一个操作。默认渲染为 type=button。</p>
+          <div class="example-pair"><ReactButton client:load>Button</ReactButton><VueButton client:load label="Button" /></div>
+        </article>
+        <article class="example">
+          <h3>Pending</h3><p>异步操作进行时，Button 保持 pending 并忽略重复按压。</p>
+          <div class="example-pair"><ReactButton client:load pendingAnnouncement="Saving">Save</ReactButton><VueButton client:load label="Save" pendingAnnouncement="Saving" /></div>
+        </article>
+        <article class="example">
+          <h3>Pending content</h3><p>保留按钮标签，只在 pending 状态切换视觉内容。</p>
+          <div class="example-pair"><ReactButton client:load>Save</ReactButton><VueButton client:load label="Save" /></div>
+        </article>
+        <article class="example">
+          <h3>Disabled</h3><p>disabled 会阻止按压，并将按钮移出 Tab 顺序。</p>
+          <div class="example-pair"><ReactButton client:load disabled>Disabled</ReactButton><VueButton client:load label="Disabled" disabled /></div>
+        </article>
+      </section>
+
+      <section class="mode mode-dark" data-astryx-theme="neutral" data-theme="dark">
+        <div class="mode-heading"><h2>Dark</h2><span>data-theme="dark"</span></div>
+        <article class="example">
+          <h3>Focusable when disabled</h3><p>focusableWhenDisabled 让不可用按钮仍保持可聚焦。</p>
+          <div class="example-pair"><ReactButton client:load disabled focusableWhenDisabled>Publish</ReactButton><VueButton client:load label="Publish" disabled focusableWhenDisabled /></div>
+        </article>
+        <article class="example">
+          <h3>Links</h3><p>Button 也可以渲染为链接，同时保持 disabled 行为。</p>
+          <div class="example-pair"><ReactButton client:load>Get started</ReactButton><VueButton client:load label="Get started" /></div>
+        </article>
+        <article class="example">
+          <h3>Forms</h3><p>通过 type=submit 和 type=reset 参与表单操作。</p>
+          <div class="example-pair"><ReactButton client:load type="submit">Subscribe</ReactButton><VueButton client:load label="Subscribe" type="submit" /><ReactButton client:load type="reset" variant="outline">Reset</ReactButton><VueButton client:load label="Reset" type="reset" variant="outline" /></div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) { box-sizing: border-box; }
+  :global(body) { margin: 0; min-width: 320px; background: #111827; color: #111827; font-family: system-ui, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 3.5rem 1.25rem 5rem; }
+  .page-header { margin-bottom: 2rem; }
+  .eyebrow { color: #94a3b8; font-size: .75rem; font-weight: 700; letter-spacing: .12em; margin: 0 0 .75rem; text-transform: uppercase; }
+  h1 { color: white; margin: 0 0 .5rem; font-size: 2.25rem; letter-spacing: -.03em; }
+  .intro { color: #cbd5e1; margin: 0; max-width: 42rem; }
+  .mode { border-radius: 1rem; margin-top: 1.5rem; padding: 2rem; }
+  .mode-light { --button-primary-bg: #111827; --button-primary-fg: #fff; --button-secondary-bg: #e2e8f0; --button-secondary-fg: #111827; --button-outline-border: #64748b; --button-outline-fg: #111827; background: #f8fafc; }
+  .mode-dark { --button-primary-bg: #f8fafc; --button-primary-fg: #111827; --button-secondary-bg: #334155; --button-secondary-fg: #f8fafc; --button-outline-border: #94a3b8; --button-outline-fg: #f8fafc; background: #1e293b; color: #f8fafc; }
+  .mode-heading { align-items: center; display: flex; justify-content: space-between; margin-bottom: 1.5rem; }
+  h2 { margin: 0; font-size: 1.25rem; }
+  .mode-heading span { color: #64748b; font-family: ui-monospace, monospace; font-size: .75rem; }
+  .mode-dark .mode-heading span { color: #94a3b8; }
+  .example { border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent); padding: 1.5rem 0; }
+  .example:first-of-type { border-top: 0; padding-top: 0; }
+  h3 { font-size: 1rem; margin: 0 0 .35rem; }
+  .example p { color: #64748b; font-size: .875rem; margin: 0 0 1rem; }
+  .mode-dark .example p { color: #cbd5e1; }
+  .example-pair { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; }
+</style>

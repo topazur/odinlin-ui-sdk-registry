@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:astro": "pnpm --dir apps/astro dev",
     "build": "next build",
+    "build:astro": "pnpm --dir apps/astro build",
     "start": "next start",
     "lint": "next lint",
     "registry:build": "shadcn build"

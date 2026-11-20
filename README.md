@@ -21,3 +21,9 @@ This is a template for creating a custom registry using Next.js.
 ## Documentation
 
 Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view the full documentation.
+
+## Astro Button validation
+
+The first cross-framework validation surface lives in `apps/astro`. It wraps
+the official `@ui-sdk/react/button` and `@ui-sdk/vue/button` components and
+adds StyleX wrapper styles. Start it with `pnpm --dir apps/astro dev`.

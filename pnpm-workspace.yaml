@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+
+allowBuilds:
+  '@tailwindcss/oxide': true
+  msw: false
+  sharp: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@ui-sdk/core@0.1.0-beta.13'
+  - '@ui-sdk/react@0.1.0-beta.13'
+  - '@ui-sdk/vue@0.1.0-beta.13'
