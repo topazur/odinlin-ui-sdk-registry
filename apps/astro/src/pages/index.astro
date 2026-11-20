@@ -26,11 +26,11 @@ import { VueButton } from "../components/VueButton"
         </article>
         <article class="example">
           <h3>Pending</h3><p>异步操作进行时，Button 保持 pending 并忽略重复按压。</p>
-          <div class="example-pair"><ReactButton client:load pendingAnnouncement="Saving">Save</ReactButton><VueButton client:load label="Save" pendingAnnouncement="Saving" /></div>
+          <div class="example-pair"><ReactButton client:load demo="pending" pendingAnnouncement="Saving">Save</ReactButton><VueButton client:load demo="pending" label="Save" pendingAnnouncement="Saving" /></div>
         </article>
         <article class="example">
           <h3>Pending content</h3><p>保留按钮标签，只在 pending 状态切换视觉内容。</p>
-          <div class="example-pair"><ReactButton client:load>Save</ReactButton><VueButton client:load label="Save" /></div>
+          <div class="example-pair"><ReactButton client:load demo="pending-content">Save</ReactButton><VueButton client:load demo="pending-content" label="Save" /></div>
         </article>
         <article class="example">
           <h3>Disabled</h3><p>disabled 会阻止按压，并将按钮移出 Tab 顺序。</p>
@@ -42,11 +42,12 @@ import { VueButton } from "../components/VueButton"
         <div class="mode-heading"><h2>Dark</h2><span>data-theme="dark"</span></div>
         <article class="example">
           <h3>Focusable when disabled</h3><p>focusableWhenDisabled 让不可用按钮仍保持可聚焦。</p>
-          <div class="example-pair"><ReactButton client:load disabled focusableWhenDisabled>Publish</ReactButton><VueButton client:load label="Publish" disabled focusableWhenDisabled /></div>
+          <div class="example-pair"><ReactButton client:load disabled focusableWhenDisabled aria-describedby="react-publish-hint">Publish</ReactButton><VueButton client:load label="Publish" disabled focusableWhenDisabled aria-describedby="vue-publish-hint" /></div>
+          <div class="hints"><span id="react-publish-hint">Add a title to publish.</span><span id="vue-publish-hint">Add a title to publish.</span></div>
         </article>
         <article class="example">
           <h3>Links</h3><p>Button 也可以渲染为链接，同时保持 disabled 行为。</p>
-          <div class="example-pair"><ReactButton client:load>Get started</ReactButton><VueButton client:load label="Get started" /></div>
+          <div class="example-pair"><ReactButton client:load demo="link">Get started</ReactButton><VueButton client:load demo="link" label="Get started" /></div>
         </article>
         <article class="example">
           <h3>Forms</h3><p>通过 type=submit 和 type=reset 参与表单操作。</p>
@@ -78,4 +79,6 @@ import { VueButton } from "../components/VueButton"
   .example p { color: #64748b; font-size: .875rem; margin: 0 0 1rem; }
   .mode-dark .example p { color: #cbd5e1; }
   .example-pair { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; }
+  .hints { color: #94a3b8; display: flex; flex-wrap: wrap; font-size: .75rem; gap: 1rem; margin-top: .75rem; }
+  [data-slot="button"]:not([data-pending]) [data-show="pending"], [data-slot="button"][data-pending] [data-show="idle"] { display: none; }
 </style>
