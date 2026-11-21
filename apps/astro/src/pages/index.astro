@@ -20,7 +20,7 @@ import { VueButton } from "../components/VueButton"
 
       <section class="mode mode-light" data-astryx-theme="neutral" data-theme="light">
         <div class="mode-heading"><h2>Light</h2><span>data-theme="light"</span></div>
-        <article class="example">
+        <article class="example" id="installation">
           <h3>Usage</h3><p>使用 Button 运行一个操作。默认渲染为 type=button。</p>
           <div class="example-pair"><ReactButton client:load>Button</ReactButton><VueButton client:load label="Button" /></div>
         </article>
@@ -51,7 +51,10 @@ import { VueButton } from "../components/VueButton"
         </article>
         <article class="example">
           <h3>Forms</h3><p>通过 type=submit 和 type=reset 参与表单操作。</p>
-          <div class="example-pair"><ReactButton client:load type="submit">Subscribe</ReactButton><VueButton client:load label="Subscribe" type="submit" /><ReactButton client:load type="reset" variant="outline">Reset</ReactButton><VueButton client:load label="Reset" type="reset" variant="outline" /></div>
+          <form class="demo-form" onsubmit="return false">
+            <input name="email" type="email" value="ada@example.com" aria-label="Email" />
+            <div class="example-pair"><ReactButton client:load type="submit">Subscribe</ReactButton><VueButton client:load label="Subscribe" type="submit" /><ReactButton client:load type="reset" variant="outline">Reset</ReactButton><VueButton client:load label="Reset" type="reset" variant="outline" /></div>
+          </form>
         </article>
       </section>
     </main>
@@ -79,6 +82,9 @@ import { VueButton } from "../components/VueButton"
   .example p { color: #64748b; font-size: .875rem; margin: 0 0 1rem; }
   .mode-dark .example p { color: #cbd5e1; }
   .example-pair { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; }
+  .demo-form { display: grid; gap: 1rem; max-width: 32rem; }
+  .demo-form input { border: 1px solid #cbd5e1; border-radius: .5rem; font: inherit; padding: .65rem .75rem; }
+  .mode-dark .demo-form input { background: #0f172a; border-color: #475569; color: #f8fafc; }
   .hints { color: #94a3b8; display: flex; flex-wrap: wrap; font-size: .75rem; gap: 1rem; margin-top: .75rem; }
   [data-slot="button"]:not([data-pending]) [data-show="pending"], [data-slot="button"][data-pending] [data-show="idle"] { display: none; }
 </style>
