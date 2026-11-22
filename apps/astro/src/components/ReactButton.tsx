@@ -23,8 +23,9 @@ export function ReactButton({
     : undefined)
   const content = demo === "pending-content" ? (
     <>
-      <span data-show="idle">Save</span>
-      <span data-show="pending">Saving…</span>
+      <span data-show="idle" aria-hidden="true">↓</span>
+      <span data-show="pending" aria-hidden="true">…</span>
+      Save
     </>
   ) : children
   return (

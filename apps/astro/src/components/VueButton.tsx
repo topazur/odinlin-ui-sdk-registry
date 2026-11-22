@@ -22,7 +22,7 @@ export const VueButton = defineComponent({
         ? () => new Promise((resolve) => setTimeout(resolve, 1500))
         : undefined)
       const content = props.demo === "pending-content"
-        ? <><span data-show="idle">Save</span><span data-show="pending">Saving…</span></>
+        ? <><span data-show="idle" aria-hidden="true">↓</span><span data-show="pending" aria-hidden="true">…</span>Save</>
         : slots.default ? slots.default() : props.label
 
       return (

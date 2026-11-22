@@ -47,9 +47,10 @@ import { VueButton } from "../components/VueButton"
         </article>
         <article class="example">
           <h3>Forms</h3><p>通过 type=submit 和 type=reset 参与表单操作。</p>
-          <form class="demo-form">
+          <form class="demo-form" data-demo-form>
             <input name="email-light" type="email" value="ada@example.com" aria-label="Email" />
             <div class="example-pair"><ReactButton client:load type="submit">Subscribe</ReactButton><VueButton client:load label="Subscribe" type="submit" /><ReactButton client:load type="reset" variant="outline">Reset</ReactButton><VueButton client:load label="Reset" type="reset" variant="outline" /></div>
+            <p class="form-status" data-form-status>Ready to subscribe.</p>
           </form>
         </article>
       </section>
@@ -83,15 +84,32 @@ import { VueButton } from "../components/VueButton"
         </article>
         <article class="example">
           <h3>Forms</h3><p>通过 type=submit 和 type=reset 参与表单操作。</p>
-          <form class="demo-form">
+          <form class="demo-form" data-demo-form>
             <input name="email" type="email" value="ada@example.com" aria-label="Email" />
             <div class="example-pair"><ReactButton client:load type="submit">Subscribe</ReactButton><VueButton client:load label="Subscribe" type="submit" /><ReactButton client:load type="reset" variant="outline">Reset</ReactButton><VueButton client:load label="Reset" type="reset" variant="outline" /></div>
+            <p class="form-status" data-form-status>Ready to subscribe.</p>
           </form>
         </article>
       </section>
     </main>
   </body>
 </html>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>("[data-demo-form]").forEach((form) => {
+    const status = form.querySelector<HTMLElement>("[data-form-status]")
+    form.addEventListener("submit", (event) => {
+      event.preventDefault()
+      const email = String(new FormData(form).get("email") ?? new FormData(form).get("email-light") ?? "")
+      if (status) status.textContent = email ? `Subscribed ${email}` : "Enter an email to subscribe."
+    })
+    form.addEventListener("reset", () => {
+      requestAnimationFrame(() => {
+        if (status) status.textContent = "Form reset."
+      })
+    })
+  })
+</script>
 
 <style>
   :global(*) { box-sizing: border-box; }
@@ -117,6 +135,8 @@ import { VueButton } from "../components/VueButton"
   .demo-form { display: grid; gap: 1rem; max-width: 32rem; }
   .demo-form input { border: 1px solid #cbd5e1; border-radius: .5rem; font: inherit; padding: .65rem .75rem; }
   .mode-dark .demo-form input { background: #0f172a; border-color: #475569; color: #f8fafc; }
+  .form-status { color: #64748b; font-size: .75rem; margin: 0; }
+  .mode-dark .form-status { color: #cbd5e1; }
   .hints { color: #94a3b8; display: flex; flex-wrap: wrap; font-size: .75rem; gap: 1rem; margin-top: .75rem; }
   [data-slot="button"]:not([data-pending]) [data-show="pending"], [data-slot="button"][data-pending] [data-show="idle"] { display: none; }
 </style>
