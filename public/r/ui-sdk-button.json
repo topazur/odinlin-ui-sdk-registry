@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-sdk-button",
+  "type": "registry:component",
+  "title": "UI SDK Button",
+  "description": "A StyleX-wrapped button using the official @ui-sdk/react/button primitive.",
+  "dependencies": [
+    "@stylexjs/stylex",
+    "@ui-sdk/core",
+    "@ui-sdk/react"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/ui-sdk-button.tsx",
+      "content": "import type React from \"react\"\nimport { Button } from \"@ui-sdk/react/button\"\nimport { buttonAttrs } from \"./ui-sdk-button.stylex\"\n\ntype UiSdkButtonProps = React.ComponentProps<typeof Button>\n\nfunction UiSdkButton({ className, ...props }: UiSdkButtonProps) {\n  const attrs = buttonAttrs()\n  return <Button {...props} className={[attrs.class, className].filter(Boolean).join(\" \")} />\n}\n\nexport { UiSdkButton }\n",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/new-york/ui/ui-sdk-button.stylex.ts",
+      "content": "import * as stylex from \"@stylexjs/stylex\"\n\nexport const styles = stylex.create({\n  button: {\n    alignItems: \"center\",\n    border: \"1px solid transparent\",\n    borderRadius: \"0.625rem\",\n    cursor: \"pointer\",\n    display: \"inline-flex\",\n    fontFamily: \"system-ui, sans-serif\",\n    fontSize: \"0.875rem\",\n    fontWeight: 600,\n    gap: \"0.5rem\",\n    justifyContent: \"center\",\n    minHeight: \"2.5rem\",\n    paddingBlock: \"0.625rem\",\n    paddingInline: \"1rem\",\n  },\n})\n\nexport const buttonAttrs = () => stylex.attrs(styles.button)\n",
+      "type": "registry:lib"
+    }
+  ]
+}
