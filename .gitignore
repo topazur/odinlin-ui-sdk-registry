@@ -14,3 +14,4 @@ yarn-error.log*
 
 # 产物(最终产物及运行时框架生成文件)
 dist
+.astro
