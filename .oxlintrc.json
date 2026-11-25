@@ -1,0 +1,28 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": false
+  },
+  "plugins": ["typescript"],
+  "categories": {
+    "correctness": "error"
+  },
+  "overrides": [
+    /** oxfmt sortImports 和 oxlint sort-imports 是互补关系，此处只管 { } 内部 specifier 的字母排序 */
+    {
+      "files": ["*.js", "*.mjs", "*.ts", "*.tsx", "*.vue", "*.svelte"],
+      "rules": {
+        "sort-imports": [
+          "warn",
+          {
+            "ignoreCase": true,
+            "ignoreDeclarationSort": true,
+            "ignoreMemberSort": false,
+            "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+            "allowSeparatedGroups": false
+          }
+        ]
+      }
+    }
+  ]
+}

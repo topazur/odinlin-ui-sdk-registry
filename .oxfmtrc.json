@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 100, // 行宽限制（默认: 100）
+  "tabWidth": 2, // 每个缩进级别的空格数（默认: 2）
+  "useTabs": false, // 使用制表符缩进（默认: false）
+  "semi": true, // 添加分号（默认: true）
+  "singleQuote": true, // 使用单引号（默认: false）
+  "trailingComma": "all", // 多行结构中的尾随逗号（默认值: all
+  "insertFinalNewline": true, // 在格式化后的文件末尾添加换行符（默认: true）
+  "endOfLine": "lf", // 换行符（默认: lf）
+  "sortPackageJson": true, // 对 package.json 文件进行排序（默认: false）
+  "svelte": false, // 启用 Svelte 格式化；运行时需要 svelte/compiler
+  "astro": true, // 启用 Astro 格式化
+  /**
+   * oxfmt sortImports 和 oxlint sort-imports 是互补关系，此处只管 import 语句的排序
+   * 升序排序 import 语句的行顺序
+   * ["builtin"], // import fs from 'node:fs';
+   * ["subpath"], // import { db } from '#lib/db';
+   * ["external"], // import jsx from 'react/jsx-runtime';
+   * ["internal"], // import {} from '@/utils';
+   * ["parent"], // import {} from '../parent';
+   * ["sibling"], // import {} from './sibling';
+   * ["index"], // import {} from '.';
+   */
+  "sortImports": {
+    "order": "asc",
+    "ignoreCase": true,
+    "internalPattern": ["~/", "@/"],
+    "partitionByComment": true,
+    "partitionByNewline": false,
+    "sortSideEffects": false,
+    "groups": [
+      ["type-builtin"],
+      { "newlinesBetween": false },
+      ["type-subpath"],
+      { "newlinesBetween": false },
+      ["type-external"],
+      { "newlinesBetween": false },
+      ["type-internal"],
+      { "newlinesBetween": false },
+      ["type-parent"],
+      { "newlinesBetween": false },
+      ["type-sibling"],
+      { "newlinesBetween": false },
+      ["type-index"],
+      { "newlinesBetween": true },
+      ["builtin"],
+      { "newlinesBetween": false },
+      ["subpath"],
+      { "newlinesBetween": false },
+      ["external"],
+      { "newlinesBetween": false },
+      ["internal"],
+      { "newlinesBetween": false },
+      ["parent"],
+      { "newlinesBetween": false },
+      ["sibling"],
+      { "newlinesBetween": false },
+      ["index"],
+      { "newlinesBetween": false },
+      ["side_effect", "side_effect_style", "style"]
+    ]
+  }
+}
