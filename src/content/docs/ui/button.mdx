@@ -1,0 +1,30 @@
+---
+title: Button
+description: Examples for the React and Vue buttons.
+---
+
+## Button Base Example (deprecated)
+
+```astro live
+---
+import Example from '~/registry/ui/button/button.astro';
+---
+
+<Example />
+```
+
+## Button Base Example (代码块内无法跳转)
+
+```astro live
+---
+import { Button as ButtonReact } from '~/registry/ui/button/button-react';
+import { Button as ButtonVue } from '~/registry/ui/button/button-vue';
+---
+
+<ButtonReact client:load id="React1" className="React1" focusableWhenDisabled data-test-id="111">
+  React1
+</ButtonReact>
+<ButtonVue client:load id="Vue1" class="Vue1" focusableWhenDisabled data-test-id="111">
+  Vue1
+</ButtonVue>
+```

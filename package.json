@@ -2,42 +2,38 @@
   "name": "registry",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "registry:build": "shadcn build"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "oxlint .",
+    "lint:format": "oxfmt --check .",
+    "lint:typecheck": "tsc --noEmit",
+    "lint:ci": "pnpm lint && pnpm lint:format && pnpm lint:typecheck",
+    "lint:fix": "oxlint --fix . && oxfmt --write ."
   },
   "dependencies": {
-    "@radix-ui/react-label": "^2.1.7",
-    "@radix-ui/react-slot": "^1.2.3",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "lucide-react": "^0.487.0",
-    "next": "15.5.9",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "shadcn": "^3.0.0",
-    "tailwind-merge": "^3.3.1",
-    "tw-animate-css": "^1.3.6",
-    "zod": "^3.25.76"
+    "@astrojs/markdown-remark": "^7.3.10",
+    "@astrojs/react": "^7.1.9",
+    "@astrojs/starlight": "^0.43.1",
+    "@astrojs/vue": "^7.1.6",
+    "astro": "^7.3.6",
+    "astro-live-code": "^0.0.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-is": "^19.3.1",
+    "sharp": "^0.35.3",
+    "vue": "^3.5.46"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@tailwindcss/postcss": "^4.1.11",
-    "@types/node": "^20.19.9",
-    "@types/react": "19.1.2",
-    "@types/react-dom": "19.1.2",
-    "eslint": "^9.32.0",
-    "eslint-config-next": "15.3.1",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5.9.2"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.1.2",
-      "@types/react-dom": "19.1.2"
-    }
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/react-is": "^19.3.0",
+    "oxfmt": "^0.80.0",
+    "oxlint": "^1.95.0",
+    "typescript": "^6.0.3"
   }
 }
