@@ -1,0 +1,94 @@
+---
+import { OpenUIRenderReact } from "./openui-render-react";
+import { OpenUIRenderVue } from "./openui-render-vue";
+import "../../styles/theme.css";
+
+interface Props {
+  source: string;
+  showActions?: boolean;
+}
+
+const { showActions = false } = Astro.props;
+const source = Astro.props.source.trim();
+---
+
+<div
+  class="openui-preview not-content"
+  data-astryx-theme="antd"
+  data-theme="light"
+>
+  <OpenUIRenderReact
+    client:only="react"
+    source={source}
+    showActions={showActions}
+  />
+  <OpenUIRenderVue
+    client:only="vue"
+    source={source}
+    showActions={showActions}
+  />
+</div>
+<details class="openui-source">
+  <summary>OpenUI Lang</summary>
+  <pre><code>{source}</code></pre>
+</details>
+
+<script>
+  if (import.meta.env.DEV) {
+    // Astro serves its own HTML, so start StyleX's dev stylesheet loader here.
+    const runtime = "/@id/virtual:stylex:runtime";
+    void import(/* @vite-ignore */ runtime);
+  }
+</script>
+
+<style>
+  .openui-preview {
+    display: grid;
+    gap: 1rem;
+    color-scheme: light;
+    color: var(--color-text);
+    background: var(--color-bg-container);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+
+  :global(.openui-framework) {
+    margin: 0;
+  }
+
+  :global(.openui-framework figcaption) {
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  :global(.openui-inline) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  :global(.openui-errors),
+  :global(.openui-action-result) {
+    display: block;
+    margin-top: 0.5rem;
+    overflow-wrap: anywhere;
+    font-size: 0.875rem;
+  }
+
+  :global(.openui-errors) {
+    list-style: disc;
+    padding-inline-start: 1.25rem;
+    color: var(--color-error);
+  }
+
+  .openui-source summary {
+    cursor: pointer;
+  }
+
+  .openui-source pre {
+    overflow-x: auto;
+  }
+</style>
