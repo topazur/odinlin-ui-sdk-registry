@@ -8,10 +8,10 @@ The Button component runs an action, communicates its state, and stays reachable
 import { OpenUIRenderReact } from '~/registry/components/openui-preview/openui-render-react';
 import { OpenUIRenderVue } from '~/registry/components/openui-preview/openui-render-vue';
 
-export const basicSource = `root = Button({}, { children: "Button" })`;
-export const disabledSource = `root = Button({ disabled: true }, { children: "Disabled" })`;
+export const basicSource = `root = Button({}, { children: "Button" }, {})`;
+export const disabledSource = `root = Button({ disabled: true }, { children: "Disabled" }, {})`;
 export const focusableSource = `root = Button({ disabled: true, focusableWhenDisabled: true }, { children: "Publish" }, { "aria-describedby": "publish-hint" })`;
-export const submitSource = `root = Button({ type: "submit" }, { children: "Subscribe" })`;
+export const submitSource = `root = Button({ type: "submit" }, { children: "Subscribe" }, {})`;
 export const linkSource = `root = Button({}, { children: "Get started" }, { href: "#installation" })`;
 export const accessibleSource = `root = Button({}, { children: "Save" }, { accesskey: "s", "aria-label": "Save changes" })`;
 
@@ -24,7 +24,9 @@ Use a native button with a clear text label for the default action.
 
 <details>
   <summary>OpenUI Lang</summary>
-  <pre><code>{basicSource}</code></pre>
+  <pre>
+    <code>{basicSource}</code>
+  </pre>
 </details>
 
 ## Disabled
@@ -36,7 +38,9 @@ Prevent presses and remove the button from the tab order while an action is unav
 
 <details>
   <summary>OpenUI Lang</summary>
-  <pre><code>{disabledSource}</code></pre>
+  <pre>
+    <code>{disabledSource}</code>
+  </pre>
 </details>
 
 ## Focusable when disabled
@@ -48,7 +52,9 @@ Keep an unavailable button in the tab order so it can explain why the action is 
 
 <details>
   <summary>OpenUI Lang</summary>
-  <pre><code>{focusableSource}</code></pre>
+  <pre>
+    <code>{focusableSource}</code>
+  </pre>
 </details>
 
 ## Submit and reset
@@ -60,7 +66,9 @@ Choose the native form behavior with the button type attribute.
 
 <details>
   <summary>OpenUI Lang</summary>
-  <pre><code>{submitSource}</code></pre>
+  <pre>
+    <code>{submitSource}</code>
+  </pre>
 </details>
 
 ## Link semantics
@@ -72,7 +80,9 @@ Add an href attribute when the action should navigate to another page.
 
 <details>
   <summary>OpenUI Lang</summary>
-  <pre><code>{linkSource}</code></pre>
+  <pre>
+    <code>{linkSource}</code>
+  </pre>
 </details>
 
 ## Accessible attributes
@@ -84,6 +94,7 @@ Pass keyboard and ARIA attributes through the registry when the surrounding UI n
 
 <details>
   <summary>OpenUI Lang</summary>
-  <pre><code>{accessibleSource}</code></pre>
+  <pre>
+    <code>{accessibleSource}</code>
+  </pre>
 </details>
-

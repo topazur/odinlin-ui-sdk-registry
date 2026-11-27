@@ -11,7 +11,7 @@ import { Button as OpenUIButton } from './button-vue';
 
 export const buttonSchema = z.object({
   props: buttonSourceSchema.extend(buttonCustomSchema.shape),
-  slots: z.any().optional(),
+  slots: z.any(),
   attrs: htmlAttrsSchema,
   action: z.any().optional(),
 });

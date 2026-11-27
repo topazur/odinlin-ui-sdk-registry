@@ -1,0 +1,4 @@
+interface:
+  display_name: 'UI SDK Component Registry'
+  short_description: 'Scaffold UI SDK wrappers, schemas, registries, and docs'
+  default_prompt: 'Use $ui-sdk-component-registry to add or update a UI SDK component across wrappers, OpenUI registration, and MDX docs.'

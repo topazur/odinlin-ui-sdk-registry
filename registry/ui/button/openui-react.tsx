@@ -10,7 +10,7 @@ import { Button as OpenUIButton } from './button-react';
 
 export const buttonSchema = z.object({
   props: buttonSourceSchema.extend(buttonCustomSchema.shape),
-  slots: z.any().optional(),
+  slots: z.any(),
   attrs: htmlAttrsSchema,
   action: action().optional(),
 });
