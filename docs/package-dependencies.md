@@ -35,4 +35,16 @@ devDependencies:
 dependencies:
 + @astrojs/vue 7.1.6
 + vue 3.5.46
+
+/**
+ * $ pnpm add @ui-sdk/core @ui-sdk/react @ui-sdk/vue @openuidev/react-lang @openuidev/vue-lang zod style-to-js
+ */
+dependencies:
++ @ui-sdk/core 0.1.0-beta.16
++ @ui-sdk/react 0.1.0-beta.16
++ @ui-sdk/vue 0.1.0-beta.16
++ @openuidev/react-lang 1.2.0
++ @openuidev/vue-lang 0.4.2
++ zod 4.6.7
++ style-to-js 2.0.2
 ```

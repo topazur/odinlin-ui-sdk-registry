@@ -1,3 +1,5 @@
+allowBuilds:
+  '@openuidev/lang-core': false # Postinstall only reports install telemetry.
 minimumReleaseAgeExclude:
   - oxfmt
   - oxlint

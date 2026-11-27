@@ -20,13 +20,20 @@
     "@astrojs/react": "^7.1.9",
     "@astrojs/starlight": "^0.43.1",
     "@astrojs/vue": "^7.1.6",
+    "@openuidev/react-lang": "^1.2.0",
+    "@openuidev/vue-lang": "^0.4.2",
+    "@ui-sdk/core": "0.1.0-beta.16",
+    "@ui-sdk/react": "0.1.0-beta.16",
+    "@ui-sdk/vue": "0.1.0-beta.16",
     "astro": "^7.3.6",
     "astro-live-code": "^0.0.6",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-is": "^19.3.1",
     "sharp": "^0.35.3",
-    "vue": "^3.5.46"
+    "style-to-js": "^2.0.2",
+    "vue": "^3.5.46",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",

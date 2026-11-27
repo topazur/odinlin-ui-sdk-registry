@@ -20,6 +20,21 @@ importers:
       '@astrojs/vue':
         specifier: ^7.1.6
         version: 7.1.6(@types/node@26.6.6)(astro@7.4.13(@astrojs/markdown-remark@7.3.10)(@types/node@26.6.6)(yaml@2.9.1))(vue@3.5.46(typescript@6.0.3))(yaml@2.9.1)
+      '@openuidev/react-lang':
+        specifier: ^1.2.0
+        version: 1.2.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
+      '@openuidev/vue-lang':
+        specifier: ^0.4.2
+        version: 0.4.2(vue@3.5.46(typescript@6.0.3))(zod@4.6.7)
+      '@ui-sdk/core':
+        specifier: 0.1.0-beta.16
+        version: 0.1.0-beta.16
+      '@ui-sdk/react':
+        specifier: 0.1.0-beta.16
+        version: 0.1.0-beta.16(@types/react@19.3.0)(@ui-sdk/core@0.1.0-beta.16)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@ui-sdk/vue':
+        specifier: 0.1.0-beta.16
+        version: 0.1.0-beta.16(@ui-sdk/core@0.1.0-beta.16)(vue@3.5.46(typescript@6.0.3))
       astro:
         specifier: ^7.3.6
         version: 7.4.13(@astrojs/markdown-remark@7.3.10)(@types/node@26.6.6)(yaml@2.9.1)
@@ -38,9 +53,15 @@ importers:
       sharp:
         specifier: ^0.35.3
         version: 0.35.5(@types/node@26.6.6)
+      style-to-js:
+        specifier: ^2.0.2
+        version: 2.0.2
       vue:
         specifier: ^3.5.46
         version: 3.5.46(typescript@6.0.3)
+      zod:
+        specifier: ^4.6.7
+        version: 4.6.7
     devDependencies:
       '@types/react':
         specifier: ^19.3.0
@@ -713,6 +734,60 @@ packages:
       '@emnapi/core': ^1.7.1 || 2.0.0-beta.2 || 2.0.0-beta.3
       '@emnapi/runtime': ^1.7.1 || 2.0.0-beta.2 || 2.0.0-beta.3
 
+  '@openuidev/devtools@0.3.1':
+    resolution: {integrity: sha512-kOCCsRGwY0w6xL1rVL1zOa9CO97ZrG6YGasRZyCv7FXaDAzbFkEgFy+FhYx6EP7sPKhkgr/jBqunADzhevpBDw==}
+    peerDependencies:
+      '@openuidev/observability': '>=0.0.4 <0.1.0'
+      '@openuidev/react-lang': '>=1.0.0 <2.0.0'
+      react: ^18.3.1 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@openuidev/react-lang':
+        optional: true
+
+  '@openuidev/lang-core@0.4.1':
+    resolution: {integrity: sha512-t9XSiORKTgyn6pWv8qqBkgD45PBhORdGWpQAHo3APvj9SYy7YprKURQgmXNu3z6E/Ds8tsLAI+AZjX3errH+jQ==}
+    peerDependencies:
+      '@modelcontextprotocol/sdk': '>=1.0.0'
+      zod: ^3.25.0 || ^4.0.0
+    peerDependenciesMeta:
+      '@modelcontextprotocol/sdk':
+        optional: true
+
+  '@openuidev/lang-core@1.2.0':
+    resolution: {integrity: sha512-95O9k8oKo4GVuFddTECPCuAH7ossi1AsHXEqqeulXARDahHHTs1MHlbErg9uiDJ4OL1EWuyNWVWZSJJKwTtkwg==}
+    peerDependencies:
+      '@modelcontextprotocol/sdk': '>=1.0.0'
+      zod: ^3.25.0 || ^4.0.0
+    peerDependenciesMeta:
+      '@modelcontextprotocol/sdk':
+        optional: true
+
+  '@openuidev/observability@0.0.4':
+    resolution: {integrity: sha512-4fjIrWu3TqTlfDE/m7cG10CH1vV7wQk5GPwMOmXeF9vJtkg92dg4Bdk3AjKgud7H7Xypwwjgt52VcLGZCE2CJQ==}
+
+  '@openuidev/react-lang@1.2.0':
+    resolution: {integrity: sha512-Hp2NtPWjqFie5EkkjUSDqeCfTgfqadgRwWDxqYo9HxnxvRl30/nGxUc4cm7BFlEYgWy98R9JcqPqeP/2EP0KtQ==}
+    peerDependencies:
+      '@modelcontextprotocol/sdk': '>=1.0.0'
+      react: '*'
+      react-dom: '*'
+      react-native: '*'
+      zod: ^3.25.0 || ^4.0.0
+    peerDependenciesMeta:
+      '@modelcontextprotocol/sdk':
+        optional: true
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+
+  '@openuidev/vue-lang@0.4.2':
+    resolution: {integrity: sha512-jkBA09Y//tktcIW3I32ovtMqL/pp2pX5lgZhaOzmHAEi9t7jMSLkcZayUvE7S6pqyAIKYuRJ30Hb35d3MYMLOQ==}
+    peerDependencies:
+      vue: '>=3.5.0'
+      zod: ^3.25.0 || ^4.0.0
+
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
 
@@ -1292,6 +1367,36 @@ packages:
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
+
+  '@ui-sdk/core@0.1.0-beta.16':
+    resolution: {integrity: sha512-I2GMqOviLS/lYfIj2lTqKLbae0V9uSnysK+bSdbhuw2De8zNvrLZiDTc0qzsPNiZvB/bMmUZJS5UDA5Q2Pq4Ng==}
+
+  '@ui-sdk/react@0.1.0-beta.16':
+    resolution: {integrity: sha512-pCM1Vb5Dycj05E63kY1CeX/jab9OlfDCGwhs29QtVenX0YrYzSRgkLYaHWscbew2gxVCBwcr8KBkh5BgH9eV+Q==}
+    peerDependencies:
+      '@types/react': '>=19.2.10'
+      '@ui-sdk/core': ^0.1.0-beta.16
+      react: '>=19'
+      react-dom: '>=19'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  '@ui-sdk/vue@0.1.0-beta.16':
+    resolution: {integrity: sha512-9Y4aMVrrYrYDNBgiJs1AWW1S6giJQ7wfmyEvN6fU0j3gyO5qmLQ1xLBmZmuCQv1Wt0AIL9VfGpAclW4ZF45IOA==}
+    peerDependencies:
+      '@nuxt/kit': ^4.0.0 || ^5.0.0-0
+      '@nuxt/schema': ^4.0.0 || ^5.0.0-0
+      '@ui-sdk/core': ^0.1.0-beta.16
+      nuxt: ^4.0.0 || ^5.0.0-0
+      vue: '>=3.5'
+    peerDependenciesMeta:
+      '@nuxt/kit':
+        optional: true
+      '@nuxt/schema':
+        optional: true
+      nuxt:
+        optional: true
 
   '@ungap/structured-clone@1.4.0':
     resolution: {integrity: sha512-1mEZtMKPM09vDmQt5y7YvmN2+DFTP7Tg0EWXdic8/C6VRnpb33e4ghisCIE3WZjsE2N8mf+QV1Zqh7ZFYLWInQ==}
@@ -1990,6 +2095,11 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
+  lucide-react@0.575.0:
+    resolution: {integrity: sha512-VuXgKZrk0uiDlWjGGXmKV6MSk9Yy4l10qgVvzGn2AWBx1Ylt0iBexKOAoA6I7JO3m+M9oeovJd3yYENfkUbOeg==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
@@ -2523,6 +2633,9 @@ packages:
 
   style-to-js@1.1.21:
     resolution: {integrity: sha512-RjQetxJrrUJLQPHbLku6U/ocGtzyjbJMP9lCNK7Ag0CNh690nSH8woqWH9u16nMjYBAok+i7JO1NP2pOy8IsPQ==}
+
+  style-to-js@2.0.2:
+    resolution: {integrity: sha512-ctgbFvvi406Jvhi/s6TJtX6XYYCCTg6POgsL+SLmrl2RHFgwulepqtYPrtKuEmT8kmyk/+fxfNzuhRLO4zsASg==}
 
   style-to-object@1.0.14:
     resolution: {integrity: sha512-LIN7rULI0jBscWQYaSswptyderlarFkjQ+t79nzty8tcIAceVomEVlLzH5VP4Cmsv6MtKhs7qaAiwlcp+Mgaxw==}
@@ -3602,6 +3715,45 @@ snapshots:
       '@tybys/wasm-util': 0.10.5
     optional: true
 
+  '@openuidev/devtools@0.3.1(@openuidev/observability@0.0.4)(@openuidev/react-lang@1.2.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      '@openuidev/observability': 0.0.4
+      lucide-react: 0.575.0(react@19.3.1)
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
+    optionalDependencies:
+      '@openuidev/react-lang': 1.2.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
+
+  '@openuidev/lang-core@0.4.1(zod@4.6.7)':
+    dependencies:
+      ci-info: 4.5.0
+      zod: 4.6.7
+
+  '@openuidev/lang-core@1.2.0(zod@4.6.7)':
+    dependencies:
+      ci-info: 4.5.0
+      zod: 4.6.7
+
+  '@openuidev/observability@0.0.4': {}
+
+  '@openuidev/react-lang@1.2.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)':
+    dependencies:
+      '@openuidev/devtools': 0.3.1(@openuidev/observability@0.0.4)(@openuidev/react-lang@1.2.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@openuidev/lang-core': 1.2.0(zod@4.6.7)
+      '@openuidev/observability': 0.0.4
+      react: 19.3.1
+      zod: 4.6.7
+    optionalDependencies:
+      react-dom: 19.3.1(react@19.3.1)
+
+  '@openuidev/vue-lang@0.4.2(vue@3.5.46(typescript@6.0.3))(zod@4.6.7)':
+    dependencies:
+      '@openuidev/lang-core': 0.4.1(zod@4.6.7)
+      vue: 3.5.46(typescript@6.0.3)
+      zod: 4.6.7
+    transitivePeerDependencies:
+      - '@modelcontextprotocol/sdk'
+
   '@oslojs/encoding@1.1.0': {}
 
   '@oxc-project/types@0.156.0': {}
@@ -3947,6 +4099,21 @@ snapshots:
   '@types/unist@2.0.11': {}
 
   '@types/unist@3.0.3': {}
+
+  '@ui-sdk/core@0.1.0-beta.16': {}
+
+  '@ui-sdk/react@0.1.0-beta.16(@types/react@19.3.0)(@ui-sdk/core@0.1.0-beta.16)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      '@ui-sdk/core': 0.1.0-beta.16
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
+    optionalDependencies:
+      '@types/react': 19.3.0
+
+  '@ui-sdk/vue@0.1.0-beta.16(@ui-sdk/core@0.1.0-beta.16)(vue@3.5.46(typescript@6.0.3))':
+    dependencies:
+      '@ui-sdk/core': 0.1.0-beta.16
+      vue: 3.5.46(typescript@6.0.3)
 
   '@ungap/structured-clone@1.4.0': {}
 
@@ -4802,6 +4969,10 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucide-react@0.575.0(react@19.3.1):
+    dependencies:
+      react: 19.3.1
 
   magic-string@0.30.21:
     dependencies:
@@ -5798,6 +5969,10 @@ snapshots:
   style-to-js@1.1.21:
     dependencies:
       style-to-object: 1.0.14
+
+  style-to-js@2.0.2:
+    dependencies:
+      style-to-object: 2.0.2
 
   style-to-object@1.0.14:
     dependencies:
