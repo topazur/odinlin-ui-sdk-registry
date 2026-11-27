@@ -28,9 +28,9 @@ export default defineConfig({
       jsx: { include: ['**/vue/**/*.tsx', '**/*vue.tsx'] },
     }),
     starlight({
-      title: 'TODO',
+      title: 'Odinlin UI SDK Registry',
       social: [
-        { icon: 'github', label: 'GitHub', href: 'https://todo.com/' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/topazur/odinlin-ui-sdk-registry' },
         { icon: 'starlight', label: 'Starlight', href: 'https://starlight.astro.build/' },
       ],
       sidebar: [

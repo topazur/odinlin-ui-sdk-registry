@@ -1,26 +1,30 @@
 ---
-title: TODO
-description: TODO
-template: splash # Remove or comment out this line to display the site sidebar on this page.
+title: Odinlin UI SDK Registry
+description: OpenUI component registry and interactive examples for React and Vue.
 hero:
-  tagline: TODO
+  tagline: Build consistent interfaces from reusable UI behaviors.
   image:
     file: ../../assets/houston.webp
   actions:
-    - text: TODO
-      link: /todo/
+    - text: Browse components
+      link: /ui/button/
       icon: right-arrow
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+The Odinlin UI SDK Registry turns UI SDK primitives into reusable OpenUI components that can be rendered in React and Vue.
+
+## Start with the Button
 
 <CardGrid stagger>
-  <Card title="Change page layout" icon="document">
-    Delete `template: splash` in `src/content/docs/index.mdx` to display a sidebar on this page.
+  <Card title="Interactive examples" icon="rocket">
+    Compare the same OpenUI source rendered by the React and Vue registries.
   </Card>
-  <Card title="Configure your site" icon="setting">
-    Edit your `sidebar` and other config in `astro.config.mjs`.
+  <Card title="Accessible defaults" icon="open-book">
+    Keep native button semantics while passing disabled, focus, link, and ARIA attributes through the registry.
+  </Card>
+  <Card title="Component source" icon="seti:typescript">
+    Explore the registry implementations and use them as a starting point for your own components.
   </Card>
 </CardGrid>

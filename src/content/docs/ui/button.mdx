@@ -1,28 +1,89 @@
 ---
 title: Button
-description: Examples for the React and Vue buttons.
+description: Examples for the Odinlin UI SDK button in React and Vue.
 ---
 
-## Button Base Example (代码块内无法跳转)
+The Button component runs an action, communicates its state, and stays reachable when disabled. Each example below is rendered through the OpenUI registry in both supported frameworks.
 
-```astro live
----
-import { Button as ButtonReact } from '~/registry/ui/button/button-react';
-import { Button as ButtonVue } from '~/registry/ui/button/button-vue';
 import { OpenUIRenderReact } from '~/registry/components/openui-preview/openui-render-react';
 import { OpenUIRenderVue } from '~/registry/components/openui-preview/openui-render-vue';
 
-const source = `
-root = Button({ variant: "solid" }, { children: "Solid" }, {accesskey:"s", style:"color:red;"})
-`;
----
+export const basicSource = `root = Button({}, { children: "Button" })`;
+export const disabledSource = `root = Button({ disabled: true }, { children: "Disabled" })`;
+export const focusableSource = `root = Button({ disabled: true, focusableWhenDisabled: true }, { children: "Publish" }, { "aria-describedby": "publish-hint" })`;
+export const submitSource = `root = Button({ type: "submit" }, { children: "Subscribe" })`;
+export const linkSource = `root = Button({}, { children: "Get started" }, { href: "#installation" })`;
+export const accessibleSource = `root = Button({}, { children: "Save" }, { accesskey: "s", "aria-label": "Save changes" })`;
 
-<!-- <ButtonReact client:load id="React1" className="React1" focusableWhenDisabled data-test-id="111">
-  React1
-</ButtonReact>
-<ButtonVue client:load id="Vue1" class="Vue1" focusableWhenDisabled data-test-id="111">
-  Vue1
-</ButtonVue> -->
-<OpenUIRenderReact client:only="react" source={source} />
-<OpenUIRenderVue client:only="vue" source={source} />
-```
+## Basic
+
+Use a native button with a clear text label for the default action.
+
+<OpenUIRenderReact client:only="react" source={basicSource} />
+<OpenUIRenderVue client:only="vue" source={basicSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre><code>{basicSource}</code></pre>
+</details>
+
+## Disabled
+
+Prevent presses and remove the button from the tab order while an action is unavailable.
+
+<OpenUIRenderReact client:only="react" source={disabledSource} />
+<OpenUIRenderVue client:only="vue" source={disabledSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre><code>{disabledSource}</code></pre>
+</details>
+
+## Focusable when disabled
+
+Keep an unavailable button in the tab order so it can explain why the action is unavailable.
+
+<OpenUIRenderReact client:only="react" source={focusableSource} />
+<OpenUIRenderVue client:only="vue" source={focusableSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre><code>{focusableSource}</code></pre>
+</details>
+
+## Submit and reset
+
+Choose the native form behavior with the button type attribute.
+
+<OpenUIRenderReact client:only="react" source={submitSource} />
+<OpenUIRenderVue client:only="vue" source={submitSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre><code>{submitSource}</code></pre>
+</details>
+
+## Link semantics
+
+Add an href attribute when the action should navigate to another page.
+
+<OpenUIRenderReact client:only="react" source={linkSource} />
+<OpenUIRenderVue client:only="vue" source={linkSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre><code>{linkSource}</code></pre>
+</details>
+
+## Accessible attributes
+
+Pass keyboard and ARIA attributes through the registry when the surrounding UI needs them.
+
+<OpenUIRenderReact client:only="react" source={accessibleSource} />
+<OpenUIRenderVue client:only="vue" source={accessibleSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre><code>{accessibleSource}</code></pre>
+</details>
+
