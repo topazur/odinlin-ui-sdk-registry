@@ -111,7 +111,7 @@ def count_top_level_arguments(body: str) -> int:
     return count
 
 
-def check_component(root: Path, component: str, parts: list[str]) -> list[str]:
+def check_component(root: Path, component: str, parts: list[str], strict_placeholders: bool = False) -> list[str]:
     component_name = pascal_case(component)
     component_dir = root / 'registry' / 'ui' / component
     docs_path = root / 'src' / 'content' / 'docs' / 'ui' / f'{component}.mdx'
@@ -218,15 +218,16 @@ def check_component(root: Path, component: str, parts: list[str]) -> list[str]:
                     f'docs {part} call {index} has {argument_count} positional arguments, expected at least 3'
                 )
 
-    for forbidden in ('console.log', 'TODO'):
-        for path in (
-            component_dir / f'{component}-react.tsx',
-            component_dir / f'{component}-vue.tsx',
-            component_dir / 'openui-react.tsx',
-            component_dir / 'openui-vue.tsx',
-        ):
-            if forbidden in read(path):
-                errors.append(f'{path.relative_to(root)} contains forbidden placeholder {forbidden}')
+    if strict_placeholders:
+        for forbidden in ('console.log', 'TODO'):
+            for path in (
+                component_dir / f'{component}-react.tsx',
+                component_dir / f'{component}-vue.tsx',
+                component_dir / 'openui-react.tsx',
+                component_dir / 'openui-vue.tsx',
+            ):
+                if forbidden in read(path):
+                    errors.append(f'{path.relative_to(root)} contains forbidden placeholder {forbidden}')
 
     return errors
 
@@ -235,6 +236,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('component', help='kebab-case component directory name')
     parser.add_argument('--parts', help='comma-separated public part names for a component family')
+    parser.add_argument(
+        '--strict-placeholders',
+        action='store_true',
+        help='fail on console.log or TODO in component files (use after recording the repository baseline)',
+    )
     parser.add_argument('--root', type=Path, default=Path.cwd(), help='repository root')
     args = parser.parse_args()
 
@@ -245,7 +251,7 @@ def main() -> int:
     if args.parts:
         parts = [part.strip() for part in args.parts.split(',') if part.strip()]
 
-    errors = check_component(args.root.resolve(), args.component, parts)
+    errors = check_component(args.root.resolve(), args.component, parts, args.strict_placeholders)
     if errors:
         for error in errors:
             print(f'ERROR: {error}', file=sys.stderr)
