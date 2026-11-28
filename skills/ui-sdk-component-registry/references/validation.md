@@ -1,6 +1,8 @@
 # Validation checklist
 
-Run these checks from the repository root after replacing `<component>` and `<Component>` with the target names.
+Run these checks from the repository root after replacing `<component>` and `<Component>` with the target names. Record the baseline result before editing when the repository already has unrelated failures, then report only new failures introduced by the component.
+
+For a component family, choose the directory as `<component>` and list every public part in `--parts`. The family still needs one shared file matrix, while each listed part needs its own schema and registered definition.
 
 ## Structural checks
 
@@ -16,6 +18,10 @@ test -f "src/content/docs/ui/$component.mdx"
 
 rg -n "ui/$component/openui-react" registry/components/openui-preview/react.ts
 rg -n "ui/$component/openui-vue" registry/components/openui-preview/vue.ts
+
+python skills/ui-sdk-component-registry/scripts/check_component.py "$component"
+# For a family with multiple public parts, list them explicitly.
+python skills/ui-sdk-component-registry/scripts/check_component.py input --parts Input,InputGroup,InputClear
 ```
 
 Check both preview-library arrays manually. An import without an entry in `components` leaves the docs renderer unable to resolve the component.
@@ -32,6 +38,8 @@ action: ...,
 ```
 
 The exact action schema can vary by installed language package, but `props`, `slots`, and `attrs` must match the parser's positional contract. If any of these fields is required, check every MDX source string.
+
+For a component family, verify that each part has a distinct schema and registration name. Verify nested calls in `slots.children` as well as the root call.
 
 ```bash
 rg -n "root\s*=\s*<Component>\(" "src/content/docs/ui/$component.mdx"

@@ -13,12 +13,18 @@ def pascal_case(value: str) -> str:
     return ''.join(part[:1].upper() + part[1:] for part in value.split('-'))
 
 
+def camel_case(value: str) -> str:
+    pascal = pascal_case(value)
+    return pascal[:1].lower() + pascal[1:]
+
+
 def read(path: Path) -> str:
     return path.read_text(encoding='utf-8')
 
 
-def extract_call_bodies(source: str, component_name: str) -> list[str]:
-    pattern = re.compile(rf'root\s*=\s*{re.escape(component_name)}\s*\(')
+def extract_call_bodies(source: str, component_name: str, root_only: bool = False) -> list[str]:
+    prefix = r'root\s*=\s*' if root_only else ''
+    pattern = re.compile(rf'{prefix}{re.escape(component_name)}\s*\(')
     bodies: list[str] = []
 
     for match in pattern.finditer(source):
@@ -105,7 +111,7 @@ def count_top_level_arguments(body: str) -> int:
     return count
 
 
-def check_component(root: Path, component: str) -> list[str]:
+def check_component(root: Path, component: str, parts: list[str]) -> list[str]:
     component_name = pascal_case(component)
     component_dir = root / 'registry' / 'ui' / component
     docs_path = root / 'src' / 'content' / 'docs' / 'ui' / f'{component}.mdx'
@@ -129,6 +135,21 @@ def check_component(root: Path, component: str) -> list[str]:
     react_registration = read(component_dir / 'openui-react.tsx')
     vue_registration = read(component_dir / 'openui-vue.tsx')
     docs = read(docs_path)
+
+    react_wrapper = read(component_dir / f'{component}-react.tsx')
+    vue_wrapper = read(component_dir / f'{component}-vue.tsx')
+    for part in parts:
+        schema_name = f'{camel_case(part)}Schema'
+        if not re.search(rf'export\s+const\s+{re.escape(part)}\s*=', react_registration):
+            errors.append(f'React registration does not export {part}')
+        if not re.search(rf'export\s+const\s+{re.escape(part)}\s*=', vue_registration):
+            errors.append(f'Vue registration does not export {part}')
+        if schema_name not in react_registration or schema_name not in vue_registration:
+            errors.append(f'{part} is missing the shared {schema_name} in both registrations')
+        if not re.search(rf'export\s+(?:const|type|interface)\s+{re.escape(part)}\b', react_wrapper):
+            errors.append(f'React wrapper does not export {part}')
+        if not re.search(rf'export\s+(?:const|type|interface)\s+{re.escape(part)}\b', vue_wrapper):
+            errors.append(f'Vue wrapper does not export {part}')
 
     for label, source in (('React registration', react_registration), ('Vue registration', vue_registration)):
         field_positions = []
@@ -160,30 +181,52 @@ def check_component(root: Path, component: str) -> list[str]:
         if registration_path not in library_source:
             errors.append(f'{framework} preview library does not import {registration_path}')
         import_match = re.search(
-            rf'import\s*\{{\s*([A-Za-z_$][\w$]*)\s*\}}\s*from\s*[\'\"]{re.escape(registration_path)}[\'\"]',
-            library_source,
-        )
-        if import_match and not re.search(
-            rf'components\s*:\s*\[[^\]]*\b{re.escape(import_match.group(1))}\b',
+            rf'import\s*\{{(?P<names>[^}}]+)\}}\s*from\s*[\'\"]{re.escape(registration_path)}[\'\"]',
             library_source,
             re.DOTALL,
-        ):
-            errors.append(f'{framework} preview library does not register {import_match.group(1)}')
+        )
+        imported_names = set()
+        if import_match:
+            imported_names = {
+                name.strip().split(' as ')[-1]
+                for name in import_match.group('names').split(',')
+                if name.strip()
+            }
+        for part in parts:
+            if part not in imported_names:
+                errors.append(f'{framework} preview library does not import {part}')
+            elif not re.search(
+                rf'components\s*:\s*\[[^\]]*\b{re.escape(part)}\b',
+                library_source,
+                re.DOTALL,
+            ):
+                errors.append(f'{framework} preview library does not register {part}')
 
     if 'OpenUIRenderReact' not in docs:
         errors.append('docs do not render the React preview')
     if 'OpenUIRenderVue' not in docs:
         errors.append('docs do not render the Vue preview')
 
-    calls = extract_call_bodies(docs, component_name)
-    if not calls:
-        errors.append(f'docs do not contain root = {component_name}(...)')
-    for index, body in enumerate(calls, start=1):
-        argument_count = count_top_level_arguments(body)
-        if argument_count < 3:
-            errors.append(
-                f'docs OpenUI call {index} has {argument_count} positional arguments, expected at least 3'
-            )
+    for part in parts:
+        calls = extract_call_bodies(docs, part)
+        if not calls:
+            errors.append(f'docs do not contain a call to {part}(...)')
+        for index, body in enumerate(calls, start=1):
+            argument_count = count_top_level_arguments(body)
+            if argument_count < 3:
+                errors.append(
+                    f'docs {part} call {index} has {argument_count} positional arguments, expected at least 3'
+                )
+
+    for forbidden in ('console.log', 'TODO'):
+        for path in (
+            component_dir / f'{component}-react.tsx',
+            component_dir / f'{component}-vue.tsx',
+            component_dir / 'openui-react.tsx',
+            component_dir / 'openui-vue.tsx',
+        ):
+            if forbidden in read(path):
+                errors.append(f'{path.relative_to(root)} contains forbidden placeholder {forbidden}')
 
     return errors
 
@@ -191,13 +234,18 @@ def check_component(root: Path, component: str) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('component', help='kebab-case component directory name')
+    parser.add_argument('--parts', help='comma-separated public part names for a component family')
     parser.add_argument('--root', type=Path, default=Path.cwd(), help='repository root')
     args = parser.parse_args()
 
     if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', args.component):
         parser.error('component must use kebab-case, for example date-picker')
 
-    errors = check_component(args.root.resolve(), args.component)
+    parts = [pascal_case(args.component)]
+    if args.parts:
+        parts = [part.strip() for part in args.parts.split(',') if part.strip()]
+
+    errors = check_component(args.root.resolve(), args.component, parts)
     if errors:
         for error in errors:
             print(f'ERROR: {error}', file=sys.stderr)

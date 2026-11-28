@@ -2,6 +2,8 @@
 
 Use this reference after reading `SKILL.md`. Replace every `<component>` placeholder and every `Component` placeholder with the kebab-case directory name and PascalCase export name. The `button` files are the concrete repository example.
 
+When a package exposes related parts, keep the shared directory and docs page, then export each part from the wrapper and registration modules. An `input` family can export `Input`, `InputGroup`, and `InputClear` while keeping separate `inputSchema`, `inputGroupSchema`, and `inputClearSchema` definitions.
+
 ## File matrix
 
 | Layer                 | Path                                            | Responsibility                                                       |
@@ -169,7 +171,7 @@ export const <Component> = defineComponent({
 });
 ```
 
-For Vue, use the Vue language `defineComponent`, wrap the actual component in `defineVueComponent`, convert attrs with `'vue'`, and map `slots.children` to a `default` slot function. Keep the same required top-level schema fields.
+For Vue, use the Vue language `defineComponent` for the registry definition and Vue's `defineComponent` for the renderer component, aliasing one of them to avoid a name collision. The installed Vue language package does not export a `defineVueComponent` helper. Convert attrs with `'vue'`, and map `slots.children` to a `default` slot function. Keep the same required top-level schema fields.
 
 Do not pass `parameters.props` directly to the wrapper. Separate `props`, `slots`, `attrs`, and `action` first so a custom prop cannot accidentally overwrite an HTML attribute or a generated slot.
 

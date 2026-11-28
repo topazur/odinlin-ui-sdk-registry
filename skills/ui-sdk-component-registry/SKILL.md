@@ -14,6 +14,7 @@ Use this skill to keep the four layers of a component in sync. Treat the existin
 - Derive the exported component name in PascalCase, for example `DatePicker`.
 - Use the same `<component>` name in the props file, wrapper files, OpenUI registration files, docs path, and library imports.
 - Reuse `registry/lib/openui-attrs.ts` and `registry/lib/vue-factory.ts`. Do not create a second HTML-attribute converter or a second Vue type factory for one component.
+- Treat related parts such as `Input`, `InputGroup`, and `InputClear` as one component family when they share a registry directory and docs page. Keep a separate schema and registered definition for every public part.
 
 ## Workflow
 
@@ -55,6 +56,8 @@ For Vue:
 - Use `defineComponent` with `inheritAttrs: false` when attrs are forwarded manually.
 - Keep primitive props in the runtime `props` option, add the custom Vue declarations, forward `rawContext.attrs`, and pass through slots with `v-slots`.
 - Preserve the primitive's slot and event types. Do not cast the whole component to `any` to silence a mismatch.
+- `@openuidev/vue-lang` does not export a `defineVueComponent` helper in the installed package. Use Vue's `defineComponent` for the renderer component, aliased locally when necessary, and use the OpenUI `defineComponent` only for the registry definition.
+- Some Vue parts expose no static `props` or `slots` member. Use an empty runtime props object where the primitive declares no props, pass through `rawContext.slots`, and keep any type cast local to that option.
 
 Do not leave `console.log`, `TODO`, placeholder defaults, or swallowed props in the finished wrapper.
 
@@ -72,6 +75,7 @@ Each registration module must:
 - Call `parameters.renderNode` for nested OpenUI slot values. Do not pass a raw AST object directly into a framework slot.
 - Use `parameters.bindSource` in React when source-location binding is supported. Keep the Vue implementation aligned with the installed Vue language package.
 - Forward the registered props to the wrapper only after separating attrs, slots, and action behavior.
+- For a component family, export one schema and one registered definition per public part, then add every public part to both preview libraries.
 
 The schema is the source of truth for the OpenUI call shape. If `attrs` is required in the schema, every example must use `Component(props, slots, attrs)`, including examples whose attrs object is `{}`. Do not make a required field optional just to keep a two-argument example short.
 
@@ -103,9 +107,12 @@ Run the checks in `references/validation.md`. At minimum, verify the following.
 
 - Both framework wrappers and both OpenUI registration files exist.
 - Both preview libraries import and register the component.
+- Every public part in a component family has a wrapper, schema, registration, and preview-library entry.
 - The registration schema and each MDX source agree on the first three positional arguments.
 - Every source used in docs renders in React and Vue.
 - Type checking catches primitive prop or slot drift.
 - The Astro build parses the MDX and framework integrations.
+
+Run `python skills/ui-sdk-component-registry/scripts/check_component.py <component>` after wiring the files. For a component family, pass each public part with `--parts` as described in `references/validation.md`.
 
 Read `references/component-patterns.md` for copyable skeletons and schema details. Read `references/validation.md` before declaring the component complete.
