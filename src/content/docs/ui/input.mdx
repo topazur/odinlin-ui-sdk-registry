@@ -1,0 +1,85 @@
+---
+title: Input
+description: Examples for the Odinlin UI SDK input, input group, and clear button in React and Vue.
+---
+
+The Input components provide a native text field, a group for surrounding content, and a clear button that returns focus to the field.
+
+import { OpenUIRenderReact } from '~/registry/components/openui-preview/openui-render-react';
+import { OpenUIRenderVue } from '~/registry/components/openui-preview/openui-render-vue';
+
+export const basicSource = `root = InputGroup({}, { children: [Input({ defaultValue: "hollisgrant.com" }, {}, { placeholder: "example.com", "aria-label": "Website" }), InputClear({}, { children: "Clear" }, { "aria-label": "Clear website" })] }, {})`;
+export const searchSource = `root = Input({}, {}, { type: "search", placeholder: "Search people", "aria-label": "Search people" })`;
+export const disabledSource = `root = Input({ disabled: true, defaultValue: "hollis@example.com" }, {}, { "aria-label": "Email" })`;
+export const readOnlySource = `root = Input({ readOnly: true, value: "example.com/hollis" }, {}, { "aria-label": "Profile URL" })`;
+export const groupSource = `root = InputGroup({}, { children: ["https://", Input({}, {}, { placeholder: "example.com", "aria-label": "Website" }), ".com"] }, {})`;
+
+## Input group with a clear button
+
+Place text, an input, and a clear button in one group. The clear button appears while the field has text and returns focus to the input after clearing it.
+
+<OpenUIRenderReact client:only="react" source={basicSource} />
+<OpenUIRenderVue client:only="vue" source={basicSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre>
+    <code>{basicSource}</code>
+  </pre>
+</details>
+
+## Search input
+
+Pass native input attributes through the third argument while keeping the component's source props in the first argument.
+
+<OpenUIRenderReact client:only="react" source={searchSource} />
+<OpenUIRenderVue client:only="vue" source={searchSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre>
+    <code>{searchSource}</code>
+  </pre>
+</details>
+
+## Disabled input
+
+Disable the field and provide an initial value through the registered source props.
+
+<OpenUIRenderReact client:only="react" source={disabledSource} />
+<OpenUIRenderVue client:only="vue" source={disabledSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre>
+    <code>{disabledSource}</code>
+  </pre>
+</details>
+
+## Read-only input
+
+A read-only input remains focusable and can be selected while preventing edits.
+
+<OpenUIRenderReact client:only="react" source={readOnlySource} />
+<OpenUIRenderVue client:only="vue" source={readOnlySource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre>
+    <code>{readOnlySource}</code>
+  </pre>
+</details>
+
+## Input group content
+
+Text around the field is display content and does not become part of the submitted value.
+
+<OpenUIRenderReact client:only="react" source={groupSource} />
+<OpenUIRenderVue client:only="vue" source={groupSource} />
+
+<details>
+  <summary>OpenUI Lang</summary>
+  <pre>
+    <code>{groupSource}</code>
+  </pre>
+</details>
