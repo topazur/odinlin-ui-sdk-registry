@@ -22,6 +22,8 @@ rg -n "ui/$component/openui-vue" registry/components/openui-preview/vue.ts
 python skills/ui-sdk-component-registry/scripts/check_component.py "$component"
 # For a family with multiple public parts, list them explicitly.
 python skills/ui-sdk-component-registry/scripts/check_component.py input --parts Input,InputGroup,InputClear
+# Once the baseline is clean, optionally reject placeholders in touched files.
+python skills/ui-sdk-component-registry/scripts/check_component.py "$component" --strict-placeholders
 ```
 
 Check both preview-library arrays manually. An import without an entry in `components` leaves the docs renderer unable to resolve the component.
